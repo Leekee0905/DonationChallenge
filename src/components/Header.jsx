@@ -1,7 +1,5 @@
 export default function Header(){
   return (
-    <div>
-      
-    </div>
+    <div>헤더입니다</div>
   )
 }

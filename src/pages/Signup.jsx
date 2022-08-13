@@ -141,14 +141,14 @@ export default function Signup() {
               {nameMessage}
             </Form.Text>
         </Form.Group>
-        <Form.Group className="mb-3" controlId="formBasicID">
+        <Form.Group className="mb-3" id='id' controlId="formBasicID">
           <Form.Label>아이디</Form.Label>
           <Form.Control required value={m_loginId} onChange={onChangeId} type="text" placeholder="아이디를 입력하세요." />
-          <Button class='form-inline'id='checkbtn'onClick={checkDuplicateId}>중복확인</Button>
           <Form.Text className='id'>
-              {idMessage}
-            </Form.Text>
+            {idMessage}
+          </Form.Text>
         </Form.Group>
+        <Button id='checkbtn'onClick={checkDuplicateId}>중복확인</Button>
         <Form.Group className="mb-3" controlId="formBasicPassword">
           <Form.Label>비밀번호</Form.Label>
           <Form.Control required 
