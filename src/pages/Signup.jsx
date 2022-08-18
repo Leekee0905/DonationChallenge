@@ -2,6 +2,7 @@ import React, {useState} from 'react'
 import {Button} from 'react-bootstrap';
 import {Form} from 'react-bootstrap';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css"
 import {ko} from 'date-fns/esm/locale'
@@ -15,29 +16,65 @@ export default function Signup() {
   const [m_password, setPassword] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
   const [m_phoneNumber,setPhone] = useState("");
-  const [m_birth, setStartDate] = useState(new Date())
+  const [m_email, setEmail] = useState("");
+  const [code, setCode] =useState("");
+  const [m_birth, setStartDate] = useState(new Date());
 
-
+  const navigate = useNavigate();
   const [idMessage, setIdMessage] = useState("");
   const [nameMessage, setNameMessage] = useState("")
   const [passwordMessage, setPasswordMessage] = useState("");
   const [passwordConfirmMessage, setPasswordConfirmMessage] = useState("");
+  const [emailMessage, setEmailMessage] = useState("");
+  const [codeMessage, setCodeMessage] = useState("") 
   // 유효성 검사
   const [isId, setIsId] = useState(false);
   const [isPassword, setIsPassword] = useState(false);
   const [isPasswordConfirm, setIsPasswordConfirm] = useState(false);
 
-  const [validated, setValidated] = useState(false);
 
   const handleSubmit = (event) => {
-    const form = event.currentTarget;
-    if (form.checkValidity() === false) {
-      event.preventDefault();
-      event.stopPropagation();
-    }
-
-    setValidated(true);
+    event.preventDefault();
+    axios({
+      method: "post",
+      url: "/member/new",
+      data: {
+        m_loginId : m_loginId,
+        m_name : m_name,
+        m_password: m_password,
+        m_phoneNumber: m_phoneNumber,
+        m_birth: moment(m_birth).format("yyyy-MM-DD"),
+        },
+      }).then((res)=>{
+        if(res.data.response === 'success'){
+          alert('회원가입 되었습니다.')
+          navigate('/')
+        }else{
+          alert('빈칸이 있거나 조건을 충족하지 않습니다. 다시 입력해 주십시오.')
+        }
+      })
+      .catch((error)=>{
+        console.log(error)
+      })
   };
+
+  const onChangeEmail = (e) => {
+    const currentEmail = e.target.value;
+    setEmail(currentEmail);
+    const emailReg =/^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+
+    if(!emailReg.test(currentEmail)){
+      setEmailMessage("이메일 형식이 맞지 않습니다.")
+    }else{
+      setEmailMessage("이메일 인증을 진행해주세요.")
+    }
+  }
+
+  const onChangeCode = (e) => {
+    const currentCode = e.target.value;
+    setCode(currentCode);
+  }
+
 
   const onChangeId = (e) => {
     const currentId = e.target.value;
@@ -93,6 +130,28 @@ export default function Signup() {
     setPhone(currentPhone);
   }
 
+  function sendEmail(){
+    axios({
+      method: "post",
+      url: "/email/send",
+      data: {
+        m_email: m_email,
+      }
+    })
+  }
+  function sendCode(){
+    axios({
+      method: "post",
+      url: "/email/check",
+      data: {
+        code: code,
+      }
+    }).then((res)=>{
+      setCodeMessage(res.data.response)
+      console.log(res.data.response)
+    })
+  }
+
   function checkDuplicateId(){
     axios({
       method: "post",
@@ -112,27 +171,11 @@ export default function Signup() {
       .catch((error)=>{
         console.log(error)
       })
-  }
-
-  function submitSignup(){
-    axios({
-      method: "post",
-      url: "/member/new",
-      data: {
-        m_loginId : m_loginId,
-        m_name : m_name,
-        m_password: m_password,
-        m_phoneNumber: m_phoneNumber,
-        m_birth: moment(m_birth).format("yyyy-MM-DD"),
-        },
-      })
-      .catch((error)=>{
-        console.log(error)
-      })
+      
   }
 
   return (
-      <Form noValidate validated={validated} onSubmit={handleSubmit}>
+      <Form className='signtype'onSubmit={handleSubmit}>
         <h2>회원가입</h2><br/>
         <Form.Group className="mb-3" controlId="formBasicName">
             <Form.Label>이름</Form.Label>
@@ -141,6 +184,22 @@ export default function Signup() {
               {nameMessage}
             </Form.Text>
         </Form.Group>
+        
+        <Form.Group className="mb-3" controlId="formBasicEmail">
+          <Form.Label>이메일</Form.Label>
+          <Form.Control required onChange={onChangeEmail} value={m_email} type="email" placeholder="이메일을 입력하세요" />
+          <Form.Text className='email'>{emailMessage}</Form.Text>
+        </Form.Group>
+
+        <Button onClick={sendEmail}>인증번호보내기</Button>
+
+        <Form.Group className='mb-3' controlId="formBasicCode">
+          <Form.Control required onChange={onChangeCode} value={code} type="text" placeholder="인증코드를 입력하세요"/>
+          <Form.Text className='code'>{codeMessage}</Form.Text>
+        </Form.Group>
+        <Button onClick={sendCode}>인증확인</Button>
+        
+
         <Form.Group className="mb-3" id='id' controlId="formBasicID">
           <Form.Label>아이디</Form.Label>
           <Form.Control required value={m_loginId} onChange={onChangeId} type="text" placeholder="아이디를 입력하세요." />
@@ -148,7 +207,9 @@ export default function Signup() {
             {idMessage}
           </Form.Text>
         </Form.Group>
+        
         <Button id='checkbtn'onClick={checkDuplicateId}>중복확인</Button>
+        
         <Form.Group className="mb-3" controlId="formBasicPassword">
           <Form.Label>비밀번호</Form.Label>
           <Form.Control required 
@@ -159,6 +220,7 @@ export default function Signup() {
             {passwordMessage}
           </Form.Text>
         </Form.Group>
+        
         <Form.Group className="mb-3" controlId="formBasicPasswordAgain">
           <Form.Label>비밀번호 재확인</Form.Label>
           <Form.Control 
@@ -170,10 +232,12 @@ export default function Signup() {
             {passwordConfirmMessage}
           </Form.Text>
         </Form.Group>
+        
         <Form.Group className="mb-3" controlId="formBasicPhoneNumber">
           <Form.Label>전화번호</Form.Label>
           <Form.Control required value={m_phoneNumber} onChange={onChangePhone} type="text" placeholder="전화번호" />
         </Form.Group>
+        
         <Form.Group className="mb-3" controlId="formBasicBirthday">
           <Form.Label>생년월일</Form.Label>
           <DatePicker
@@ -187,7 +251,8 @@ export default function Signup() {
           dropdownMode="select"
           />
         </Form.Group>
-        <Button onClick={submitSignup}variant="primary" type="submit">
+        
+        <Button variant="primary" type="submit">
           제출
         </Button>
       </Form>
