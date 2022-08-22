@@ -2,9 +2,9 @@ import { Link, Navigate, useNavigate } from "react-router-dom"
 import { React, useEffect, useState } from "react"
 import axios from "axios"
 import { Form, Button, Container, Nav, Navbar, NavDropdown } from "react-bootstrap"
+import './Header.css'
 
-
-export function Login(){
+export function Logout(){
   const navigate=useNavigate()
   function onSignupClick(){
     navigate('/member/new')
@@ -13,17 +13,16 @@ export function Login(){
     navigate('/member/login')
   }
   return (
-    <Form>
-      <Button onClick={onLoginClick}>로그인</Button>
-      <Button onClick={onSignupClick}>회원가입</Button>
-    </Form>
+    <div>
+      <Button className='loginbtn' onClick={onLoginClick}>로그인</Button>
+      <Button className='signupbtn' onClick={onSignupClick}>회원가입</Button>
+    </div>
     
   )
 }
 
-export function Logout(props){
+export function Login(props){
   const isLogin = props.isLogin;
-  const [userId,setUserId] = useState("")
   const username = sessionStorage.getItem("id")
 
   function logoutHandle(){
@@ -39,16 +38,17 @@ export function Logout(props){
     })
   }
   return (
-    <div>
+    <div className="loginlayout">
       {username}님 
-      <Link to='/mypage'>마이페이지</Link>
-      <Button onClick={logoutHandle}to='/' replace>로그아웃</Button>
+      <Link className='mypage' to='/mypage'>마이페이지</Link>
+      <Button className='logoutbtn' onClick={logoutHandle}>로그아웃</Button>
     </div>
   )
 }
 
 export default function Header(){
   const [isLogin,setIsLogin] = useState(false)
+  const navigate=useNavigate()
   
   useEffect(()=>{
     if(sessionStorage.getItem('id') === null){
@@ -64,13 +64,12 @@ export default function Header(){
       <Container>
       <Navbar.Brand href="/">Donation Challenge</Navbar.Brand>
       <Nav className="me-auto">
-        <Nav>Home</Nav>
-        <Nav>Features</Nav>
-        <Nav>Pricing</Nav>
+        <Nav.Link href="/">홈</Nav.Link>
+        <Nav.Link href="/challenge">챌린지</Nav.Link>
+        <Nav.Link>Q&A</Nav.Link>
       </Nav>
       {isLogin ? 
-      	// Main 컴포넌트 호출 시 isLogin 이라는 props 값을 전달
-        <Logout isLogin={isLogin}/> : <Login/>}
+        <Login isLogin={isLogin}/> : <Logout/>}
       </Container>
     </Navbar>
   )
