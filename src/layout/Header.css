@@ -1,0 +1,14 @@
+.logoutbtn, .loginbtn, .signupbtn{
+  margin-left: 1em;
+  background-color: white!important;
+  color: black!important;
+  border-color: black!important;
+  border-radius: 52px!important;
+}
+
+.mypage{
+  margin-left: 1em;
+  text-decoration: none;
+  color: black;
+}
+
