@@ -65,7 +65,7 @@ export default function Header(){
       <Navbar.Brand href="/">Donation Challenge</Navbar.Brand>
       <Nav className="me-auto">
         <Nav.Link href="/">홈</Nav.Link>
-        <Nav.Link href="/challenge">챌린지</Nav.Link>
+        <Nav.Link href="/challenge/list">챌린지</Nav.Link>
         <Nav.Link>Q&A</Nav.Link>
       </Nav>
       {isLogin ? 

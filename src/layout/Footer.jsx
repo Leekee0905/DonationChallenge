@@ -1,7 +1,13 @@
+import { Container } from 'react-bootstrap'
+import './Footer.css'
 export default function Footer(){
   return (
-    <div>
-      
-    </div>
+    <footer>
+      <Container>
+        <div>
+          푸터
+        </div>
+      </Container>
+    </footer>
   )
 }
