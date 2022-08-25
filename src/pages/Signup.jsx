@@ -9,8 +9,13 @@ import {ko} from 'date-fns/esm/locale'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import moment from 'moment';
 import "./Signup.css"
+
+/**
+ * 회원가입
+ */
 export default function Signup() {
 
+  //회원가입 때 받을 데이터
   const [m_loginId, setId] = useState("");
   const [m_name, setName] = useState("");
   const [m_password, setPassword] = useState("");
@@ -21,21 +26,26 @@ export default function Signup() {
   const [m_birth, setStartDate] = useState(new Date());
 
   const navigate = useNavigate();
+
+  // 메시지
   const [idMessage, setIdMessage] = useState("");
   const [nameMessage, setNameMessage] = useState("")
   const [passwordMessage, setPasswordMessage] = useState("");
   const [passwordConfirmMessage, setPasswordConfirmMessage] = useState("");
   const [emailMessage, setEmailMessage] = useState("");
   const [codeMessage, setCodeMessage] = useState("") 
+
   // 유효성 검사
   const [isId, setIsId] = useState(false);
   const [isPassword, setIsPassword] = useState(false);
   const [isPasswordConfirm, setIsPasswordConfirm] = useState(false);
 
-
-  const handleSubmit = (event) => {
+/**
+ *  회원가입 제출 및 유효성 검사
+ */
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    axios({
+    await axios({
       method: "post",
       url: "/member/new",
       data: {
@@ -58,6 +68,9 @@ export default function Signup() {
       })
   };
 
+  /**
+   * 이메일 유효성 검사 및 입력
+   */
   const onChangeEmail = (e) => {
     const currentEmail = e.target.value;
     setEmail(currentEmail);
@@ -70,12 +83,17 @@ export default function Signup() {
     }
   }
 
+  /**
+   * 이메일 인증 코드 입력 
+   */
   const onChangeCode = (e) => {
     const currentCode = e.target.value;
     setCode(currentCode);
   }
 
-
+/**
+ * 아이디 입력 및 유효성검사
+ */
   const onChangeId = (e) => {
     const currentId = e.target.value;
     setId(currentId);
@@ -89,15 +107,24 @@ export default function Signup() {
     }
   };
 
+  /**
+   *  이름 입력 
+   */
   const onChangeName = (e) => {
     const currentName = e.target.value;
     setName(currentName);
     if(m_name.length === 0){
       setNameMessage("이름을 한 글자 이상 적어주세요")
+    } else{
+      setNameMessage("이름을 적었습니다.")
     }
   }
-  
+  console.log(m_name)
 
+
+  /**
+   * 패스워드 유효성 검사 및 입력 
+   */
   const onChangePassword = (e) => {
     const currentPassword = e.target.value;
     setPassword(currentPassword);
@@ -113,6 +140,10 @@ export default function Signup() {
       setIsPassword(true);
     }
   };
+
+  /**
+   * 패스워드 일치 여부
+   */
   const onChangePasswordConfirm = (e) => {
     const currentPasswordConfirm = e.target.value;
     setPasswordConfirm(currentPasswordConfirm);
@@ -120,27 +151,42 @@ export default function Signup() {
       setPasswordConfirmMessage("비밀번호가 일치하지 않습니다.");
       setIsPasswordConfirm(false);
     } else {
-      setPasswordConfirmMessage("일치되었습니다..");
+      setPasswordConfirmMessage("일치되었습니다.");
       setIsPasswordConfirm(true);
     }
   };
 
+  /**
+  * 전화번호 입력
+   */
   const onChangePhone = (e) => {
     const currentPhone = e.target.value;
     setPhone(currentPhone);
   }
 
-  function sendEmail(){
-    axios({
+  /**
+   * 이메일 인증메일 보내기
+   * */
+  const sendEmail= async(e) =>{
+    e.preventDefault();
+    await axios({
       method: "post",
       url: "/email/send",
       data: {
         m_email: m_email,
       }
+    }).then((res)=>{
+      if(res.data.response === 'success'){
+        setEmailMessage("이메일을 확인해주세요")
+      }
     })
   }
-  function sendCode(){
-    axios({
+  /**
+   * 이메일 인증 코드 보내기 
+   */
+  const sendCode = async(e) =>{
+    e.preventDefault();
+    await axios({
       method: "post",
       url: "/email/check",
       data: {
@@ -152,8 +198,12 @@ export default function Signup() {
     })
   }
 
-  function checkDuplicateId(){
-    axios({
+  /**
+   * 아이디 중복 검사 
+   */
+  const checkDuplicateId = async(e) => {
+    e.preventDefault();
+    await axios({
       method: "post",
       url: "/member/new/check",
       data: {
@@ -191,7 +241,7 @@ export default function Signup() {
           <Form.Text className='email'>{emailMessage}</Form.Text>
         </Form.Group>
 
-        <Button onClick={sendEmail}>인증번호보내기</Button>
+        <Button className='sendbtn' onClick={sendEmail}>인증번호보내기</Button>
 
         <Form.Group className='mb-3' controlId="formBasicCode">
           <Form.Control required onChange={onChangeCode} value={code} type="text" placeholder="인증코드를 입력하세요"/>

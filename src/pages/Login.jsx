@@ -10,9 +10,9 @@ export default function Login(){
   const [idMessage, setIdMessage] = useState("")
   const [passwordMessage, setPasswordMessage] = useState("")
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    axios({
+    await axios({
       method: "post",
       url: "/member/login",
       data: {
