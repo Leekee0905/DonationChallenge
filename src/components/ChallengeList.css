@@ -1,0 +1,13 @@
+.card{
+  margin: 2% 3% 2% 3%;
+  width: 18rem;
+  height: 25rem;
+}
+
+.card-text{
+  margin-bottom: 5px;
+}
+
+.challengecard{
+  cursor: pointer;
+}

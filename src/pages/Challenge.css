@@ -8,9 +8,9 @@
   font-weight: 700;
   font-size: 14px;
   line-height: 20px;
-  position: absolute;
-  right: 3%;
-  bottom: 5%;
+  position: fixed;
+  left: 90%;
+  bottom: 3%;
   padding: 0 8px;
   min-width: 90px;
   height: 32px;
@@ -27,3 +27,10 @@
   transform-origin: right bottom;
   transform: none;
 }
+
+.card{
+  float:none;
+  margin: 0 auto;
+  margin-top: 2%;
+}
+

@@ -31,3 +31,11 @@ input{
 #id{
   margin-bottom: 0.5rem!important;
 }
+
+.sendbtn{
+  margin-bottom: 10px!important;
+}
+
+Button{
+  margin-bottom: 10px
+}
