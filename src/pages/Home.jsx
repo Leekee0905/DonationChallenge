@@ -1,9 +1,28 @@
+import { Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
-
 export default function Home(){
   return (
-    <div>
-      <h2>홈입니다.</h2>
-    </div>
+    <Container>
+      홈을만들어봅시다
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+    </Container>
   )
 }
