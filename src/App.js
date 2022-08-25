@@ -8,6 +8,7 @@ import Mypage from './components/Mypage';
 import Challenge from './pages/Challenge';
 import ChallengeUpload from './pages/ChallengeUpload';
 import ChallengeDetail from './pages/ChallengeDetail';
+import Footer from './layout/Footer';
 
 
 function App() {
@@ -19,10 +20,11 @@ function App() {
           <Route path='/member/new' element={<Signup />} />
           <Route path='/member/login' element={<Login />} />
           <Route path='/mypage' element={<Mypage />} />
-          <Route path='/challenge/*' element={<Challenge />} />
+          <Route path='/challenge/list' element={<Challenge />} />
           <Route path='/challenge/upload' element={<ChallengeUpload />}/>
           <Route path='/challenge/:id' element={<ChallengeDetail />}/>
         </Routes>
+        <Footer />
     </div>
   );
 }
