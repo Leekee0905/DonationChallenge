@@ -10,6 +10,9 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import './ChallengeUpload.css'
 
+/**
+ * 챌린지 업로드 양식
+ */
 export default function ChallengeUpload(){
   const [c_title, setTitle] = useState("")
   const [c_detail, setDetail] = useState("")
@@ -33,9 +36,12 @@ export default function ChallengeUpload(){
     setDonation(currentDonation);
   }
 
-  function submitChallenge(){
-    
-    axios({
+  /**
+   * 챌린지 생성 제출 클릭 이벤트
+   */
+  const submitChallenge = async(e) => {
+    e.preventDefault();
+    await axios({
       method: 'post',
       url: '/challenge/new',
       data: {
@@ -47,7 +53,7 @@ export default function ChallengeUpload(){
     }).then((res)=>{
       if(res.data.response === 'success'){
         alert('챌린지가 생성되었습니다.')
-        navigate('/challenge')
+        navigate('/challenge/list')
       }else{
         alert(res.data.response)
         if(res.data.response === '로그인을 해주세요'){
