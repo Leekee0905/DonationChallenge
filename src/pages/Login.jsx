@@ -3,6 +3,10 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import axios from 'axios';
 import { React, useState } from 'react';
 import './Login.css'
+
+/**
+ * 로그인
+ */
 export default function Login(){
   const [m_loginId, setId] = useState("");
   const [m_password,setPassword] = useState("");
@@ -10,6 +14,9 @@ export default function Login(){
   const [idMessage, setIdMessage] = useState("")
   const [passwordMessage, setPasswordMessage] = useState("")
 
+  /**
+   *  로그인 제출 이벤트
+   */
   const handleSubmit = async (event) => {
     event.preventDefault();
     await axios({

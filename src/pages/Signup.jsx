@@ -39,6 +39,7 @@ export default function Signup() {
   const [isId, setIsId] = useState(false);
   const [isPassword, setIsPassword] = useState(false);
   const [isPasswordConfirm, setIsPasswordConfirm] = useState(false);
+  const [isEmail, setIsEmail] = useState(false);
 
 /**
  *  회원가입 제출 및 유효성 검사
@@ -53,6 +54,7 @@ export default function Signup() {
         m_name : m_name,
         m_password: m_password,
         m_phoneNumber: m_phoneNumber,
+        m_email: m_email,
         m_birth: moment(m_birth).format("yyyy-MM-DD"),
         },
       }).then((res)=>{
@@ -78,8 +80,10 @@ export default function Signup() {
 
     if(!emailReg.test(currentEmail)){
       setEmailMessage("이메일 형식이 맞지 않습니다.")
+      setIsEmail(false)
     }else{
       setEmailMessage("이메일 인증을 진행해주세요.")
+      setIsEmail(true)
     }
   }
 
@@ -195,6 +199,8 @@ export default function Signup() {
     }).then((res)=>{
       setCodeMessage(res.data.response)
       console.log(res.data.response)
+    }).catch((error)=>{
+      console.log(error)
     })
   }
 
@@ -301,7 +307,6 @@ export default function Signup() {
           dropdownMode="select"
           />
         </Form.Group>
-        
         <Button variant="primary" type="submit">
           제출
         </Button>
