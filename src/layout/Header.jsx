@@ -4,6 +4,10 @@ import axios from "axios"
 import { Form, Button, Container, Nav, Navbar, NavDropdown } from "react-bootstrap"
 import './Header.css'
 
+/**
+ * 로그인 여부에 따른 헤더 버튼 변경
+ * 로그인 안되어있을때
+ */
 export function Logout(){
   const navigate=useNavigate()
   function onSignupClick(){
@@ -13,7 +17,7 @@ export function Logout(){
     navigate('/member/login')
   }
   return (
-    <div>
+    <div className="logoutlayout">
       <Button className='loginbtn' onClick={onLoginClick}>로그인</Button>
       <Button className='signupbtn' onClick={onSignupClick}>회원가입</Button>
     </div>
@@ -21,6 +25,10 @@ export function Logout(){
   )
 }
 
+
+/**
+ * 로그인 되었을때 헤더 버튼 
+ */
 export function Login(props){
   const isLogin = props.isLogin;
   const username = sessionStorage.getItem("id")
@@ -46,6 +54,9 @@ export function Login(props){
   )
 }
 
+/**
+ * 헤더
+ */
 export default function Header(){
   const [isLogin,setIsLogin] = useState(false)
   const navigate=useNavigate()
@@ -66,7 +77,6 @@ export default function Header(){
       <Nav className="me-auto">
         <Nav.Link href="/">홈</Nav.Link>
         <Nav.Link href="/challenge/list">챌린지</Nav.Link>
-        <Nav.Link>Q&A</Nav.Link>
       </Nav>
       {isLogin ? 
         <Login isLogin={isLogin}/> : <Logout/>}

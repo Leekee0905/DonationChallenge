@@ -4,9 +4,9 @@ export default function Footer(){
   return (
     <footer>
       <Container>
-        <div>
-          푸터
-        </div>
+        front-end : 이기성 cj8928@gmail.com
+        <br/>
+        back-end : 양철진 gra1259@naver.com
       </Container>
     </footer>
   )
