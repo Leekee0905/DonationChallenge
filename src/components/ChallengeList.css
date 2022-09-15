@@ -1,17 +1,29 @@
 .card{
   margin: 2% 3% 2% 3%;
-  width: 18rem;
-  height: 25rem;
+  display: flex;
+  overflow: hidden;
+}
+
+.card-img-top{
+  border-bottom: 1px solid black;
 }
 
 .card-text{
   margin-bottom: 5px;
 }
 
+.card-title{
+  font-size: 17px!important;
+  font-weight: 1000;
+}
+
 .challengecard{
   cursor: pointer;
+  margin-bottom: 15px!important;
 }
 
 .recommend{
+  color: red;
   cursor: pointer;
+  padding-right: 5px;
 }

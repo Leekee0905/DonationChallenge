@@ -1,3 +1,47 @@
+.deletereply{
+  --bs-btn-bg: #ffaf88;
+  --bs-btn-color: white;
+  --bs-btn-border-color:#ffaf88;
+  --bs-btn-hover-color: white;
+  --bs-btn-hover-bg: #ffaf88;
+  --bs-btn-hover-border-color: #ffaf88;
+  --bs-btn-active-color: white; 
+  --bs-btn-active-bg: #ffaf88;
+  font-size: 10px;
+  width: 50px;
+  height: 20px;
+  --bs-btn-line-height: 20px;
+  padding: 0;
+  float: right;
+  margin-right: 15px;
+}
+
+.card{
+  overflow: hidden;
+}
+
 .replybody{
-  height: 450px!important;
+  margin-top: 15px;
+  height:80%;
+}
+
+.replyname{
+  font-weight: 500;
+  font-size: 30px;
+}
+
+.reply-card{
+  display: flex;
+  margin-bottom: 15px;
+}
+
+.replydetail{
+  font-size: 30px;
+  padding-left:10px;
+}
+
+@media screen and (max-width: 576px) {
+  .reply-card .replybody, .deletereply{
+    display: none;
+  }
 }

@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Button, Card, ListGroup } from "react-bootstrap";
+import { Button, Card, Container } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import './ChallengeList.css'
 import { faHeart as regularHeart } from '@fortawesome/free-regular-svg-icons'; // ♡
@@ -12,7 +12,8 @@ export default function ChallengeList(props){
   const [like, setLike] = useState("");
   const [isLike, setIsLike] = useState("");
   const [hearts, setHearts] = useState("");
-
+  const [path, setPath] = useState("");
+  const [newstate, setNewState] = useState("");
   /**
    * props로 Challenge.jsx에서 챌린지 데이터 받아와서 출력
    */
@@ -38,11 +39,9 @@ export default function ChallengeList(props){
     e.stopPropagation()
     if(isLike === false){
       setLike("1")
-      console.log(like)
       setIsLike(true)
     }else{
       setLike('0')
-      console.log(like)
       setIsLike(false)
     }
 
@@ -68,7 +67,6 @@ export default function ChallengeList(props){
       method: 'get',
       url: `/challenge/${id}/heart`
     }).then((res)=>{
-      console.log(res.data.response)
       setHearts(res.data.hearts)
       if(res.data.response === "1"){
         setLike("1")
@@ -78,32 +76,45 @@ export default function ChallengeList(props){
         setIsLike(false)
       }
     })
-  },[])
+    cardThumbnail();
+    changeState();
+
+  })
+
+  
+  const cardThumbnail = () => {
+    if(c_donation_destination === '굿네이버스'){
+      setPath(process.env.PUBLIC_URL+"/img/good.png")
+    }else if(c_donation_destination === '초록우산어린이재단'){
+      setPath(process.env.PUBLIC_URL+"/img/green.png")
+    }else if(c_donation_destination === '적십자'){
+      setPath(process.env.PUBLIC_URL+"/img/redcross.png")
+    }else if(c_donation_destination === '유니세프'){
+      setPath(process.env.PUBLIC_URL+"/img/unicef.png")
+    }
+  }
+
+  const changeState = () => {
+    if(c_state === 'PROCEED'){
+      setNewState('진행중')
+    }else{
+      setNewState('종료')
+    }
+  }
 
 
   return(
-    <Card className="challengecard" onClick={navigateDetail} >
-      <Card.Img variant="top" />
+    <Card style={{height:"13rem"}}className="challengecard" onClick={navigateDetail} >
+      <Card.Img style={{height:"44px"}} variant="top" src={path}/>
       <Card.Body>
         <Card.Title>{c_title}</Card.Title>
-        <Card.Text>
-          {c_detail.substr(0,21)}
-        </Card.Text>
-      </Card.Body>
-        <ListGroup className="list-group-flush">
-          <ListGroup.Item>{hearts}회</ListGroup.Item>
-          <ListGroup.Item>{c_price}원</ListGroup.Item>
-          <ListGroup.Item>{c_donation_destination}</ListGroup.Item>
-          <ListGroup.Item>{c_startTime} ~ {c_endTime}</ListGroup.Item>
-          <ListGroup.Item>{c_state}</ListGroup.Item>
-          <ListGroup.Item>{c_challengers}명</ListGroup.Item>
-        </ListGroup>
-        <Card.Body>
+        <div className="card_detail">{c_donation_destination}</div>
+        <div className="card_detail">~ {c_endTime}</div>
+        <div>
           <FontAwesomeIcon onClick={postRecommend} className="recommend" icon={isLike ? solidHeart : regularHeart}/>
-
-          
-        </Card.Body>
-      
+            {hearts}
+          </div>
+      </Card.Body>
     </Card>
   )
 }
