@@ -1,0 +1,21 @@
+.participated .card{
+  margin: 0 0.5em;
+  box-shadow: 2px 6px 8px 0 rgba(22, 22, 26, 0.18);
+  border-radius: 0;
+  font-size: 15px;
+}
+
+@media screen and (max-width: 991px) {
+  .challengecard .card-body .card-title{
+    font-size: 16px;
+  }
+  .challengecard .card-body .card_detail{
+    font-size: 13px;
+  }
+}
+
+@media screen and (max-width: 767px){
+  .challengecard .card-body .card-title{
+    font-size:12px;
+  }
+}

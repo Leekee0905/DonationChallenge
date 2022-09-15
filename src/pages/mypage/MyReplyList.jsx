@@ -4,12 +4,13 @@ import { Container, Table } from "react-bootstrap";
 
 export default function MyReplyList(){
 
-  const [replyData, setReplyData] = useState();
+  const [replyData, setReplyData] = useState("");
 
   useEffect(()=>{
     axios.get('/mypage/challenges/reply')
     .then((res)=>{
       setReplyData(res.data)
+      console.log(res.data)
     })
     .catch((error)=>{
       console.log(error)
@@ -18,7 +19,7 @@ export default function MyReplyList(){
 
   return(
     <Container>
-
+      <h3>기부 내역</h3>
       <Table striped>
         <thead>
           <tr>
@@ -29,19 +30,16 @@ export default function MyReplyList(){
           </tr>
         </thead>
         <tbody>
-        {
-          replyData ? replyData.map(list=>{
-            console.log(list)
+          {replyData ? replyData.map(list=>{
             return(
-              <tr>
+              <tr key={list.r_id}>
                 <td>{list.r_title}</td>
                 <td>{list.r_detail}</td>
                 <td>{list.r_localDateTime}</td>
                 <td>{list.r_donation_destination}</td>
               </tr>
             )
-        }):''
-        }
+          }):''}
         </tbody>
       </Table>
     </Container>

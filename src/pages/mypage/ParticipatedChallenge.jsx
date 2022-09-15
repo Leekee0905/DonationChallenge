@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import axios from "axios"
 import {Row, Col, Container} from 'react-bootstrap'
 import ChallengeList from "../../components/ChallengeList"
+import './ParticipatedChallenge.css'
 
 /** 유저가 참가한 챌린지 */
 export default function ParticipatedChallenge(){
@@ -16,14 +17,13 @@ export default function ParticipatedChallenge(){
     })
   },[])
   return(
-    <Container>
+    <Container className="particpated">
       <h3>내가 참여한 챌린지</h3>
-        <Row lg={2} md={1} xs={1}>
+        <Row lg={24} md={24} sm={12} xs={12}>
           {participate ? participate.map(list=>
           {
-            console.log(list.id)
               return(
-                <Col className='md' key={list.id}>
+                <Col lg={3} md={3} sm={3} xs={12} key={list.id}>
                   <ChallengeList list={list} />
                 </Col>
                 )

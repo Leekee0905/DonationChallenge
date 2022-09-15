@@ -52,7 +52,7 @@ export const DeleteMember = () => {
   }
   return(
     <div>
-      <Button variant="primary" onClick={confrimDelete}>
+      <Button className='quitmem' variant="primary" onClick={confrimDelete}>
       회원탈퇴
       </Button>
 
@@ -75,10 +75,10 @@ export const DeleteMember = () => {
           </Form>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
+          <Button className='deletemem' variant="secondary" onClick={handleClose}>
             닫기
           </Button>
-          <Button variant="primary" onClick={quitMemeber}>
+          <Button className='deletemem' variant="primary" onClick={quitMemeber}>
             탈퇴
           </Button>
         </Modal.Footer>
@@ -144,8 +144,8 @@ export const EmailCheck = (props) => {
       </Form>
     </Modal.Body>
     <Modal.Footer>
-      <Button onClick={props.onHide}>닫기</Button>
-      <Button onClick={sendCode}>인증하기</Button>
+      <Button className="email_modal" onClick={props.onHide}>닫기</Button>
+      <Button className="email_modal" onClick={sendCode}>인증하기</Button>
     </Modal.Footer>
   </Modal>
   )
@@ -290,7 +290,6 @@ export default function UserInfo(){
       url: '/mypage'
     }).then((res)=>{
       setMydata(res.data)
-      console.log(res.data)
     }).catch((error)=>{
       console.log(error)
     })
@@ -349,7 +348,7 @@ export default function UserInfo(){
               {emailMessage}
             </Form.Text>
           </Form.Group>
-          <Button variant="primary" disabled={!isEmail} onClick={()=>setModalShow(true)} type='submit'>인증하기</Button>
+          <Button className="emailSubmit" variant="primary" disabled={!isEmail} onClick={()=>setModalShow(true)} type='submit'>인증하기</Button>
           <EmailCheck show={modalShow} onHide={()=>setModalShow(false)} email={m_newemail} />
         </Form>
       </Container>
@@ -382,7 +381,7 @@ export default function UserInfo(){
               {confirmPasswordMessage}
             </Form.Text>
           </Form.Group>
-          <Button variant="primary" type='submit'>변경하기</Button>
+          <Button className="changepw" variant="primary" type='submit'>변경하기</Button>
         </Form>
       </Container>
       <DeleteMember/>

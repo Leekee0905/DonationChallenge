@@ -7,22 +7,22 @@ import CreatedChallenge from "./CreatedChallenge";
 import ParticipatedChallenge from "./ParticipatedChallenge";
 import LikeChallenge from "./LikeChallenge";
 import MyReplyList from "./MyReplyList";
+import MyPayment from "./MyPayment";
 
 
 
 export default function Mypage(){
   return(
     <section>
-      <div className="mypage_header">
-        <Container className="mypage">
-          <h4>마이페이지</h4>
-        </Container> 
+      <div className="bannername">
+        마이페이지
       </div>
-      <Container>
+      <Container className="mypage_body">
       <Row>
         <Col xs={3} md={3} lg={3}>
           <aside className="column sidebar_left">
             <Container className="menu_container">
+              <p className="mypage-logo">마이페이지</p>
               <p className="menu-label">회원관리</p>
               <ul className="menu-list">
                 <li>
@@ -43,10 +43,17 @@ export default function Mypage(){
                 </li>
               </ul>
 
-              <p className="reply-label">내가 단 댓글</p>
+              <p className="menu-label">내가 단 댓글</p>
               <ul className="menu-list">
                 <li>
                   <Link to='/mypage/challenges/reply'>댓글</Link>
+                </li>
+              </ul>
+
+              <p className="menu-label">내 기부 내역</p>
+              <ul className="menu-list">
+                <li>
+                  <Link to='/mypage/challenges/mypayment'>기부 내역</Link>
                 </li>
               </ul>
             </Container>
@@ -59,6 +66,7 @@ export default function Mypage(){
             <Route path="/challenges/participation" element={<ParticipatedChallenge/>} />
             <Route path="/challenges/like" element={<LikeChallenge/>} />
             <Route path="/challenges/reply" element={<MyReplyList/>} />
+            <Route path="/challenges/mypayment" element={<MyPayment/>} />
           </Routes>
         </Col>
       </Row>
