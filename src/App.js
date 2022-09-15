@@ -9,22 +9,26 @@ import Challenge from './pages/challengepage/Challenge';
 import ChallengeUpload from './pages/challengepage/ChallengeUpload';
 import ChallengeDetail from './pages/challengepage/ChallengeDetail';
 import Footer from './layout/Footer';
+import NotFound from './pages/NotFound';
 
 
 
 function App() {
   return (
-    <div>
+    <div id='wrapper'>
         <Header />
-        <Routes>
-          <Route path='/*' element={<Home />} />
-          <Route path='/member/new' element={<Signup />} />
-          <Route path='/member/login' element={<Login />} />
-          <Route path='/mypage/*' element={<Mypage />} />
-          <Route path='/challenge/list/*' element={<Challenge />} />
-          <Route path='/challenge/upload' element={<ChallengeUpload />}/>
-          <Route path='/challenge/:id' element={<ChallengeDetail />}/>
-        </Routes>
+        <div className='main-content'>
+          <Routes>
+            <Route path='/' element={<Home />} />
+            <Route path='/member/new' element={<Signup />} />
+            <Route path='/member/login' element={<Login />} />
+            <Route path='/mypage/*' element={<Mypage />} />
+            <Route path='/challenge/list/*' element={<Challenge />} />
+            <Route path='/challenge/upload' element={<ChallengeUpload />}/>
+            <Route path='/challenge/:id' element={<ChallengeDetail />}/>
+            <Route path='/*' element={<NotFound/>}/>
+          </Routes>
+        </div>
         <Footer />
     </div>
   );
