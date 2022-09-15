@@ -231,6 +231,10 @@ export default function Signup() {
   }
 
   return (
+    <div>
+      <div className="bannername">
+        회원가입
+      </div>
       <Form className='signtype'onSubmit={handleSubmit}>
         <h2>회원가입</h2><br/>
         <Form.Group className="mb-3" controlId="formBasicName">
@@ -253,7 +257,7 @@ export default function Signup() {
           <Form.Control required onChange={onChangeCode} value={code} type="text" placeholder="인증코드를 입력하세요"/>
           <Form.Text className='code'>{codeMessage}</Form.Text>
         </Form.Group>
-        <Button onClick={sendCode}>인증확인</Button>
+        <Button className='codecheck' onClick={sendCode}>인증확인</Button>
         
 
         <Form.Group className="mb-3" id='id' controlId="formBasicID">
@@ -264,7 +268,7 @@ export default function Signup() {
           </Form.Text>
         </Form.Group>
         
-        <Button id='checkbtn'onClick={checkDuplicateId}>중복확인</Button>
+        <Button className='checkbtn'onClick={checkDuplicateId}>중복확인</Button>
         
         <Form.Group className="mb-3" controlId="formBasicPassword">
           <Form.Label>비밀번호</Form.Label>
@@ -307,12 +311,11 @@ export default function Signup() {
           dropdownMode="select"
           />
         </Form.Group>
-        <Button variant="primary" type="submit">
+        <Button variant="primary" className='signupsubmit' type="submit">
           제출
         </Button>
       </Form>
-
-    
+    </div>
   );
 }
 

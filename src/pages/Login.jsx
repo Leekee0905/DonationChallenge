@@ -57,9 +57,11 @@ export default function Login(){
   }
 
   return (
+    <div>
+      <div className="bannername">
+        로그인
+      </div>
     <Form className='logintype'onSubmit={handleSubmit}>
-
-      <h2>로그인</h2>
       <Form.Group className='mb-3' controlId='formBasicId'>
         <Form.Label>아이디</Form.Label>
         <Form.Control required value={m_loginId} onChange={loginId} type="text" placeholder='아이디를 입력하세요' />
@@ -75,8 +77,8 @@ export default function Login(){
           {passwordMessage}
         </Form.Text>
       </Form.Group>
-      <Button variant="primary" type="submit">로그인</Button>
-
+      <Button variant="primary" className='loginpagebtn' type="submit">로그인</Button>
     </Form>
+    </div>
   );
 }
