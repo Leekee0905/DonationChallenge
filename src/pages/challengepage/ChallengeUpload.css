@@ -7,3 +7,14 @@
   box-shadow: 2px 2px 3px rgba(0,0,0,0.1);
   border-radius: 0.375rem;
 }
+
+.c_upload_btn{
+  --bs-btn-bg: #ffaf88;
+  --bs-btn-color: white;
+  --bs-btn-border-color:#ffaf88;
+  --bs-btn-hover-color: white;
+  --bs-btn-hover-bg: #ffaf88;
+  --bs-btn-hover-border-color: #ffaf88;
+  --bs-btn-active-color: white; 
+  --bs-btn-active-bg: #ffaf88;
+}

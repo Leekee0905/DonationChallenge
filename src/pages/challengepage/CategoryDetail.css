@@ -1,0 +1,11 @@
+.categorybanner{
+  margin-bottom: 15px;
+}
+
+.donation_detail{
+  display: flex;
+  text-align: center;
+  align-items: center;
+  border: 1px solid #FF5733;
+  margin-bottom: 15px;
+}

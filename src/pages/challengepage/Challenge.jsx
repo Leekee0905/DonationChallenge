@@ -1,19 +1,24 @@
-import axios from 'axios'
-import { useEffect, useState } from 'react'
-import { Button, Container, Row, Col, Carousel } from 'react-bootstrap'
-import { Link, useNavigate } from 'react-router-dom'
-import { Route,Routes } from 'react-router-dom' 
+import { Button, Container, Row, Col, Accordion } from 'react-bootstrap'
+import { useNavigate, useParams } from 'react-router-dom'
+import { Route,Routes, Link} from 'react-router-dom' 
 
-import ChallengeList from '../../components/ChallengeList'
 import './Challenge.css'
 import EndedChallenge from './EndedChallenge'
+import CategoryDetail from './CategoryDetail'
 import OngoingChallenge from './OngoingChallenge'
+import SearchPage from './SearchPage'
+
 
 // 챌린지 리스트 페이지
 export default function Challenge(){
-  const navigate = useNavigate()
-  const [challenges, setChallenges] = useState([])
-  
+  const navigate = useNavigate();
+  const donation = [
+    '적십자',
+    '굿네이버스',
+    '유니세프',
+    '초록우산어린이재단'
+  ]
+
   /**
    * 챌린지 업로드 페이지로 이동하는 함수
    * 세션 스토리지를 통해 로그인 여부 확인해서 로그인 안되어 있으면 로그인 페이지로 아니면 업로드 페이지 이동
@@ -27,72 +32,53 @@ export default function Challenge(){
   }
 
 
-
-
   return(
-    <div>
-      <Container>
-        <Carousel>
-        <Carousel.Item>
-          <img
-            height={300}
-            className="d-block w-100"
-            src={process.env.PUBLIC_URL+'/winter.jpeg'}
-            alt="First slide"
-          />
-          <Carousel.Caption>
-            <h3>First slide label</h3>
-            <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-          </Carousel.Caption>
-        </Carousel.Item>
-        </Carousel>
-      </Container>
-    
-
-      <section>
-
+    <div className='challenge-wrapper'>
+      <section className='challenge-content'>
+      <div className="bannername">
+        챌린지 목록
+      </div>
       <Container>
         <Row>
-          <Col xs={2} md={2} lg={2}>
+          <Col xs={3} md={3} lg={3}>
             <aside className="column sidebar_left">
               <Container className="menu_container">
-                <p className="menu-label">카테고리</p>
-                <ul className="menu-list">
+                <p className="menu-label">기부처</p>
+                <ul className='menu-list'>
                   <li>
-                    <Link to='/challenge/list'>진행중인 챌린지</Link>
+                    <a href={'/challenge/list/category/'+donation[0]}>{donation[0]}</a>
                   </li>
                   <li>
-                    <Link to='/challenge/list/end'>종료된 챌린지</Link>
+                    <a href={'/challenge/list/category/'+donation[1]}>{donation[1]}</a>
+                  </li>
+                  <li>
+                    <a href={'/challenge/list/category/'+donation[2]}>{donation[2]}</a>
+                  </li>
+                  <li>
+                    <a href={'/challenge/list/category/'+donation[3]}>{donation[3]}</a>
+                  </li>
+                </ul>
+                <ul className="menu-list">
+                  <li>
+                    <a href='/challenge/list'>진행중인 챌린지</a>
+                  </li>
+                  <li>
+                    <a href='/challenge/list/end'>종료된 챌린지</a>
                   </li>
                 </ul>
               </Container>
             </aside>
           </Col>
-
-          <Col lg={10} md={10} xs={10}>
-            
+          <Col lg={9} md={9} xs={9}>
               <Routes>
                 <Route path='/*' element={<OngoingChallenge/>}/>
                 <Route path='/end' element={<EndedChallenge/>}/>
+                <Route path='/search/:search' element={<SearchPage/>} />
+                <Route path='/category/:destination' element={<CategoryDetail/>}/>
               </Routes>
-
           </Col> 
         </Row>
       </Container>
-
-      {/* <Container fluid='md'>
-        <Col lg={3} md={2} xs={1}>
-            {challenges ? challenges.map(list=>{
-              console.log(list.id)
-              return(
-                <Col className='md' key={list.id}>
-                  <ChallengeList list={list} />
-                </Col>
-              )
-            }): ''}
-        </Col> 
-        </Row>
-      </Container> */}
     </section>
     <Button onClick={toUpload} className='uploadbtn' >업로드</Button>
     </div>

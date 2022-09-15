@@ -1,7 +1,8 @@
 import ChallengeList from "../../components/ChallengeList"
 import axios from "axios"
 import { useState, useEffect } from "react"
-import { Container, Col, Row } from "react-bootstrap"
+import { Container, Col, Row, CardGroup } from "react-bootstrap"
+import './OngoingChallenge.css'
 
 export default function OngoinChallenge(){
   const [challenges, setChallenges] = useState("") 
@@ -20,15 +21,19 @@ export default function OngoinChallenge(){
 
   return(
     <Container>
-      <Row xxl={3} xl={2} lg={2} md={1} sm ={1} xs ={1}>
+      <section>
+        <img className="challengebanner" width={"100%"} height={"300px"} src={process.env.PUBLIC_URL+'/img/homebanner.png'} />
+      </section>
+      <Row lg={24} md={24} sm={12} xs={12}>
+        <CardGroup>
       {challenges ? challenges.map(list=>{
-        console.log(list.id)
         return(
-          <Col className='md' key={list.id}>
-            <ChallengeList list={list} />
+          <Col lg={3} md={3} sm={3} xs={12} key={list.id}>
+              <ChallengeList list={list} />
           </Col>
         )
       }): ''}
+        </CardGroup>
       </Row>
     </Container>
   )

@@ -10,7 +10,7 @@
   line-height: 20px;
   position: fixed;
   left: 90%;
-  bottom: 3%;
+  bottom: 14%;
   padding: 0 8px;
   min-width: 90px;
   height: 32px;
@@ -26,11 +26,68 @@
   background-color: rgba(255, 255, 255, 1.0);
   transform-origin: right bottom;
   transform: none;
+  --bs-btn-hover-bg: #ff5733;
+  --bs-btn-hover-border-color: rgba(22, 24, 35, 0.12);
 }
 
 .card{
   float:none;
   margin: 0 auto;
   margin-top: 2%;
+  margin: 0 0.5em;
+  box-shadow: 2px 6px 8px 0 rgba(22, 22, 26, 0.18);
+  border-radius: 0;
 }
 
+
+
+@media screen and (max-width: 768px) {
+  .sidebar-btn{
+    display: none;
+  }
+}
+
+.sidebar-btn{
+  height: 50px;
+  text-align: left;
+  padding-left: 20px;
+  line-height: 50px;
+  border-radius: 0!important;
+  position: relative;
+}
+
+.accordion{
+  --bs-accordion-border-color: #ffaf88;
+  --bs-accordion-bg: #FAE5DB;
+  height: 50px;
+  --bs-accordion-border-radius: 0;
+  --bs-accordion-btn-focus-border-color: #ffaf88;
+  --bs-accordion-active-color: black;
+  --bs-accordion-active-bg: #FAE5DB;
+}
+
+.accordion-body{
+  text-align: center;
+}
+
+.challengebanner{
+  margin-bottom: 15px;
+}
+
+.menu-list a{
+  color: black;
+}
+
+.menu-list a:hover{
+  color:#ff5733;
+}
+
+.bannername{
+  background-color: #ff5733;
+  height: 40px;
+  line-height: 40px;
+  padding-left: 50px;
+  font-size: 30px;
+  color: white;
+  margin-bottom: 30px;
+}

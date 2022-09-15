@@ -1,0 +1,22 @@
+@media screen and (max-width: 991px) {
+  .challengecard .card-body .card-title{
+    font-size: 16px;
+  }
+  .challengecard .card-body .card_detail{
+    font-size: 13px;
+  }
+}
+
+
+
+@media screen and (max-width: 767px){
+  .challengecard .card-body .card_detail{
+    display: none;
+  }
+}
+
+@media screen and (max-width: 575px) {
+  .challengecard .card-body .card_detail{
+    display:flex;
+  } 
+}

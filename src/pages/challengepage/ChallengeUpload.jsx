@@ -75,8 +75,9 @@ export default function ChallengeUpload(){
       <Form.Select onChange={onChangeDonation} value={c_donation_destination} aria-label="Default select example">
         <option>기부단체 선택</option>
         <option value="적십자">적십자</option>
-        <option value="초록어린이재단">초록어린이재단</option>
+        <option value="초록우산어린이재단">초록우산어린이재단</option>
         <option value="굿네이버스">굿네이버스</option>
+        <option value="유니세프">유니세프</option>
       </Form.Select>
       <Form.Group className="mb-3" controlId="formBasicEndDay">
           <Form.Label>종료 날짜</Form.Label>
@@ -93,7 +94,7 @@ export default function ChallengeUpload(){
           dropdownMode="select"
           />
         </Form.Group>
-      <Button onClick={submitChallenge}>업로드</Button>
+      <Button className="c_upload_btn" onClick={submitChallenge}>업로드</Button>
     </Form>
   );
 }

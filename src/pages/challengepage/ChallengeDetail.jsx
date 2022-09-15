@@ -4,6 +4,8 @@ import { Button, Modal, Form, Container, Row, Col } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
 import ReplyList from '../../components/ReplyList';
 import './ChallengeDetail.css'
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHeart as solidHeart } from '@fortawesome/free-solid-svg-icons'; // ♥︎
 
 /**
  * 수정하기, 삭제하기 버튼 함수
@@ -31,7 +33,7 @@ export const Deluptbtn= () => {
       }).then((res)=>{
         if(res.data.response === 'success'){
           alert('삭제되었습니다.')
-          navigate('/challenge')
+          navigate('/challenge/list')
         }else{
           alert(res.data.response)
         }
@@ -76,8 +78,8 @@ export const Deluptbtn= () => {
 
   return(
   <div>
-    <Button className="delbtn" onClick={deleteChallenge} varinat='primary'>챌린지삭제</Button>
-    <Button className='uptbtn' onClick={handleShow} variant="primary">수정하기</Button>
+    <Button className="delbtn" onClick={deleteChallenge} varinat='primary'>삭제</Button>
+    <Button className='uptbtn' onClick={handleShow} variant="primary">수정</Button>
 
     <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
@@ -108,7 +110,7 @@ export const Deluptbtn= () => {
           <Button variant="secondary" onClick={handleClose}>
             닫기
           </Button>
-          <Button variant="primary" onClick={updateChallenge}>
+          <Button className="submit-update" variant="primary" onClick={updateChallenge}>
             수정
           </Button>
         </Modal.Footer>
@@ -117,33 +119,25 @@ export const Deluptbtn= () => {
 }
 
 
-export const Certification = () => {
+export const Certification = (props) => {
   const params = useParams();
   const id = params.id;
-  const [price, setPrice] = useState("");
+
   const [file, setFile] = useState();
   const [reply, setReply] = useState({
     r_detail: ''
   });
-  const [isDone,setIsDone] = useState(false);
-
-
+  
   const onChangeFile = (e) => {
     setFile(e.target.files[0])
-    console.log(e.target.files[0])
   }
 
   const onChangeReply= (e)=> {
     const currentReply = e.target.value;
     setReply({['r_detail']: currentReply});
-    console.log(reply)
   }
   
-  const onChangePrice = (e) => {
-    const currentPrice = e.target.value;
-    setPrice(currentPrice);
-    console.log(price);
-  }
+
 
   const blob = new Blob([JSON.stringify(reply)], {type: 'application/json'})
 
@@ -164,31 +158,69 @@ export const Certification = () => {
     }).then((res)=>{
       console.log(formData)
       if(res.data.response === '댓글달기 완료'){
-        console.log(res.data.response)
         window.location.replace(`/challenge/${id}`)
       }
     })
   }
 
+  
+  return(
+    <Form onSubmit={onSubmit}>
+      <Form.Group controlId="formFile" className="mb-3">
+        <Form.Control 
+        value={reply.r_detail}
+        required
+        onChange={onChangeReply}
+        placeholder="당신의 챌린지를 설명해주세요."
+        className="replycontrol"
+        type="text"/>
+        <Form.Control         
+        onChange={onChangeFile}
+        required
+        className="filecontrol"
+        type="file" />
+        <div className="submitbtn">
+        <Button className='submitreply' disabled={!props.state} variant="primary" type="submit">제출</Button>
+        </div>
+      </Form.Group>
+    </Form>
+  )
+}
+
+export const Payment = (props) => {
+  const params = useParams();
+  const id = params.id;
+  const {
+    m_name,
+    m_phoneNumber,
+    m_email,
+  }=props.data
+  console.log(props)
+  const [price, setPrice] = useState("");
+  const onChangePrice = (e) => {
+    const currentPrice = e.target.value;
+    setPrice(currentPrice);
+  }
+
   const onClickPayment = () => {
     const {IMP} = window
     IMP.init('imp31260025')
+    console.log(props.c_title)
     const data={
       pg: 'html5_inicis',
       pay_method: 'card',
       merchant_uid: `mid${new Date().getTime()}`,
       amount: price,
-      name: '아임포트 결제 테스트',
-      buyer_name: '이기성',
-      buyer_tel: '01050928928',                     // 구매자 전화번호
-      buyer_email: 'cj8928@gmail.com',               // 구매자 이메일
+      name: props.title,
+      buyer_name: m_name,
+      buyer_tel: m_phoneNumber,                     // 구매자 전화번호
+      buyer_email: m_email,               // 구매자 이메일
     };
 
     IMP.request_pay(data, callback);
   }
 
   const callback = (response) => {
-    console.log(response.imp_uid)
     const {
       success,
       imp_uid,
@@ -209,7 +241,6 @@ export const Certification = () => {
         }
       })
       .then((res)=>{
-      console.log(res)
       if(response.paid_amount === res.data.response.amount){
         alert('결제가 완료되었습니다.')
         axios({
@@ -220,7 +251,6 @@ export const Certification = () => {
             imp_uid: response.imp_uid
           }
         }).then(()=>{
-          setIsDone(true)
         }).catch((error)=>{
           console.log(error);
         })
@@ -232,33 +262,22 @@ export const Certification = () => {
       alert(`${error_msg}`)
     }
   }
+
   return(
-    <Form onSubmit={onSubmit}>
-      <Form.Group controlId="formFile" className="mb-3">
-        <Form.Label>인증하기</Form.Label>
-        <Form.Control         
-        onChange={onChangeFile}
-        required
-        type="file" />
-        <Form.Control 
-        value={reply.r_detail}
-        required
-        onChange={onChangeReply}
-        type="text"/>
-        <Form.Control
-        value={price}
-        onChange={onChangePrice}
-        required
-        placeholder={'기부 금액'}
-        min={100}
-        type="number"/>
-        <Form.Text>최소 금액 100원</Form.Text>
-        <div className="submitbtn">
-        <Button onClick={onClickPayment} type="button" formAction="button">결제하기</Button>
-        <Button className='submitreply'disabled={!isDone} variant="primary" type="submit">제출</Button>
-        </div>
-      </Form.Group>
-    </Form>
+    <Form>
+      <Form.Control
+      value={price}
+      onChange={onChangePrice}
+      required
+      placeholder={'기부 금액'}
+      min={100}
+      className="pricecontrol"
+      type="number"/>
+      <Form.Text>기부는 선택입니다. 최소 금액 100원</Form.Text>
+      <div>
+      <Button className="paybtn" disabled={!props.state} onClick={onClickPayment} type="button" >결제하기</Button>
+      </div>
+  </Form>
   )
 }
 
@@ -278,15 +297,18 @@ export default function ChallengeDetail(){
   const [c_donation_destination, setDonation] = useState("");
   const [c_hearts, setHearts] = useState();
   const [c_price, setPrice] = useState();
-  const [c_challengers, setChallengers] = useState()
-  const [c_state, setState] = useState("")
-  const [c_startTime, setStartTime] = useState("")
-  const [c_endTime, setEndTime] = useState("")
+  const [c_challengers, setChallengers] = useState();
+  const [c_state, setState] = useState("");
+  const [c_startTime, setStartTime] = useState("");
+  const [c_endTime, setEndTime] = useState("");
 
-  const [whologin, setWhoLogin] = useState("");
+  const [finishMessage, setFinishMessage] = useState("");
+
+  const [myData, setMyData] = useState("");
 
   const [isMade, setIsMade] = useState(false);
   const [isParticipate, setIsParticipate] = useState(false)
+  const [isState, setIsState] = useState(true);
 
 
   /**
@@ -316,8 +338,11 @@ export default function ChallengeDetail(){
       setPrice(res.data.c_price)
       if(res.data.c_state === 'PROCEED'){
         setState('진행중')
+        setIsState(true)
       }else if(res.data.c_state === 'END'){
         setState('종료')
+        setIsState(false)
+        setFinishMessage('종료된 챌린지입니다. 더이상 인증하거나 기부를 할 수 없습니다.')
       }
       setStartTime(res.data.c_startTime)
       setEndTime(res.data.c_endTime)
@@ -328,7 +353,6 @@ export default function ChallengeDetail(){
 
     axios.get(`/challenge/${id}/replyList`)
     .then((res)=>{
-      console.log(res.data)
       setReplyList(res.data)
     }).catch((error)=>{
       console.log(error)
@@ -361,7 +385,10 @@ export default function ChallengeDetail(){
       console.log(error)
     })
 
-    setWhoLogin(sessionStorage.getItem("id"))
+    axios.get('/mypage')
+    .then((res)=>{
+      setMyData(res.data)
+    })
   },[])
 
   /**
@@ -392,57 +419,72 @@ export default function ChallengeDetail(){
   }
 
   return(
-    <Container>
-      <div className="infoBox">
-        <h1 className="title">{c_title}</h1>
-        <span className="info">
-          챌린지 생성자 : {whomade}님  
-          <div>
-            참여 인원 : {c_challengers}명
-          </div>
-          <div>
-            기간 : {c_startTime} ~ {c_endTime}
-          </div>
-          <div>
-            추천 수 : {c_hearts}회
-          </div>
-        </span>
-        <span className="info2">
-          <div>
-              기부 단체 : {c_donation_destination}
-            </div>
-            <div>
-              챌린지 기부 금액 : {c_price}원
-            </div>
-            <div>
-              진행 상황 : {c_state}
-            </div>
-        </span>
-        <span className="dubtn">
-          {isMade ? <Deluptbtn />: ''}
-        </span>
+    <div>
+      <div className="bannername">
+        챌린지
       </div>
-      <h3>{c_detail}</h3>
-      {isParticipate ? <Certification></Certification> : <Button onClick={applyChallenge} className="applybtn">챌린지 신청하기</Button>}
-      <div>
-        이곳에 인증 사진들 올릴거임
-      </div>
-      <Container fluid='md'>
-        <Row lg={3} md={2} xs={1}>
-            {replyList ? replyList.map(list=>{
-              console.log(list.id)
-              return(
-                <Col className='md' key={list.id}>
-                  <ReplyList list={list} />
-                </Col>
-              )
-            }): ''}
-        </Row> 
+      <Container>
+        <div className="infoBox">
+          <h1 className="title">{c_title}</h1><br/>
+          <FontAwesomeIcon className="recommend-heart" icon={solidHeart}/>{c_hearts}
+        </div>
+        <div className="info_detail">
+          {c_detail}
+        </div>
+        <div className="whomadebox">
+          <div className="whomade">
+            {whomade}
+          </div>
+          <span className="dubtn">
+            {isMade ? <Deluptbtn />: ''}
+          </span>
+        </div>
+        <div className="detailbox">
+          <Row md={12}>
+            <Col md={4}>
+            <div className="challenge_detail">
+              <div className="detail_item">
+                현재 모금액: {c_price}원
+              </div>
+              <div className="detail_item">
+                도사들 : {c_challengers}명
+              </div>
+              <div className="detail_item">
+                기부처 : {c_donation_destination}
+              </div>
+              <div className="detail_item">
+                기간 : {c_startTime} ~ {c_endTime}
+              </div>
+            </div>
+            </Col>
+            <Col md={8}>
+              <div className="submitbox">
+                {isParticipate ? <Certification state={isState}></Certification> : ''}
+                {isParticipate ? <Payment state={isState} title={c_title} data={myData}/> : ''}
+              </div>
+
+            </Col>
+          </Row>
+
+        </div>
+          <h4 className="finishmessage">{finishMessage}</h4>
+        {isParticipate ? '' : <Button onClick={applyChallenge} className="applybtn">챌린지 신청하기</Button>}
+        <div className="replylist">
+          인증 내역
+        </div>
+        <Container className="replycontainer" fluid='md'>
+          <Row lg={3} md={2} xs={1}>
+              {replyList ? replyList.map(list=>{
+                return(
+                  <Col key={list.id}>
+                    <ReplyList id={id} list={list} />
+                  </Col>
+                )
+              }): ''}
+          </Row> 
+        </Container>
       </Container>
-      
-      
-      
-    </Container>
+    </div>
   )
 }
 
