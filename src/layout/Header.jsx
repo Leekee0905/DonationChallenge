@@ -3,23 +3,19 @@ import { React, useEffect, useState } from "react"
 import axios from "axios"
 import { Form, Button, Container, Nav, Navbar, NavDropdown } from "react-bootstrap"
 import './Header.css'
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faUser } from "@fortawesome/free-regular-svg-icons"
 
 /**
  * 로그인 여부에 따른 헤더 버튼 변경
  * 로그인 안되어있을때
  */
 export function Logout(){
-  const navigate=useNavigate()
-  function onSignupClick(){
-    navigate('/member/new')
-  }
-  function onLoginClick(){
-    navigate('/member/login')
-  }
+
   return (
     <div className="logoutlayout">
-      <Button className='loginbtn' onClick={onLoginClick}>로그인</Button>
-      <Button className='signupbtn' onClick={onSignupClick}>회원가입</Button>
+      <Link className='loginbtn' to="/member/login">로그인</Link>
+      <Link className='signupbtn' to="/member/new">회원가입</Link>
     </div>
     
   )
@@ -28,6 +24,8 @@ export function Logout(){
 
 /**
  * 로그인 되었을때 헤더 버튼 
+ * 
+ * 220910 여기해야함
  */
 export function Login(props){
   const isLogin = props.isLogin;
@@ -48,8 +46,17 @@ export function Login(props){
   return (
     <div className="loginlayout">
       {username}님 
-      <Link className='mypage' to='/mypage'>마이페이지</Link>
-      <Button className='logoutbtn' onClick={logoutHandle}>로그아웃</Button>
+      {/*여기를 바꾸면됨 햄버거 메뉴로*/}
+      <span className="profile_hoverable">
+        <FontAwesomeIcon className="hovericon" icon={faUser} />
+        <div className="profile_modal">
+          <Link className='mypage' to='/mypage'>마이페이지</Link>
+          <br/>
+          <Button className='logoutbtn' onClick={logoutHandle}>로그아웃</Button>
+        </div>
+      </span>
+      {/**호버 모달 메뉴 */}
+
     </div>
   )
 }
@@ -73,9 +80,8 @@ export default function Header(){
   return(
     <Navbar>
       <Container>
-      <Navbar.Brand href="/">Donation Challenge</Navbar.Brand>
+      <Navbar.Brand href="/">도사들</Navbar.Brand>
       <Nav className="me-auto">
-        <Nav.Link href="/">홈</Nav.Link>
         <Nav.Link href="/challenge/list">챌린지</Nav.Link>
       </Nav>
       {isLogin ? 

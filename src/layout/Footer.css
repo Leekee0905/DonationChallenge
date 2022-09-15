@@ -1,4 +1,31 @@
-footer{
-  background-color: lightgrey;
-  margin-top: 20px;
+.footer{
+  background-color: #f2f2f2;
+  height: 6em;
+  bottom:0;
+  width: 100%;
+  position: relative;
+  transform: translateY(100%);
+}
+
+.footer_wrapper{
+  display: flex;
+  justify-content: center;
+  bottom: 0;
+}
+
+.name{
+  font-size: 11px;
+}
+
+.email{
+  font-size: 11px;
+  margin-bottom: 5%;
+}
+
+.footer_front{
+  margin: 2% 2%;
+}
+
+.footer_back{
+  margin: 2% 2%;
 }

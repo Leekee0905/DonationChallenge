@@ -1,14 +1,68 @@
-.mypage, .logoutbtn, .loginbtn, .signupbtn{
-  margin-left: 1em;
-  background-color: white!important;
-  color: black!important;
-  border-color: black!important;
-  border-radius: 52px!important;
+.loginlayout .logoutbtn{
+  --bs-btn-bg: white;
+  --bs-btn-color: #FF5733;
+  --bs-btn-border-width:0;
+  --bs-btn-hover-color: #FF5733;
+  --bs-btn-hover-bg: white;
+  --bs-btn-hover-border-color: white;
+  --bs-btn-active-color: #FF5733; 
+  --bs-btn-active-bg: white;
+  --bs-btn-active-border-color: white;
+  font-size: 16px;
 }
+
 
 .mypage{
-  margin-left: 1em;
+  margin-top: 20px;
+  font-size: 16px;
   text-decoration: none;
-  color: black;
+  color: #FF5733!important;
 }
 
+.navbar-brand{
+  color: #FF5733!important;
+  font-size: 40px!important;
+}
+
+.navbar{
+  border-bottom: 1px solid #FF5733;
+  display: inline-block;
+}
+
+.logoutlayout a{
+  color: #424242;
+}
+
+.profile_hoverable:hover .profile_modal{
+  display: block;
+}
+
+.profile_hoverable{
+  margin-left: 20px;
+  height: 100px;
+}
+
+.profile_modal{
+  display: none;
+  position: absolute;
+  width: 150px;
+  height: 100px;
+  border: 1px solid #FF5733;
+  background-color: white;
+  z-index: 10;
+  line-height: 50px;
+  text-align: center;
+}
+
+
+.navbar .loginlayout a{
+  color: #FF5733;
+}
+
+.navbar a:hover{
+  color: #FF5733;
+}
+
+.loginbtn{
+  margin-right: 13px;
+}
