@@ -1,0 +1,84 @@
+
+.bounceintext{
+  position: relative;
+}
+
+.slideintext{
+  color: #FF5733;
+  position: relative;
+}
+
+.search-container{
+  word-break: break-word;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 150px;
+}
+
+.search_wrapper{
+  max-width: 500px;
+  width: 100%;
+  position: relative;
+  align-items: center;
+  display: flex;
+  padding-top: 50px;
+}
+
+
+.search_wrapper .me-2 {
+  background-color: rgb(239, 215, 210);
+  border: 1px solid #f58b74;
+  padding: 14px 20px;
+  box-shadow: 0 2px 4px 0 rgb(0, 0, 0 /10%);
+  border-radius: 28px;
+  height: auto;
+  transition: all .2s ease;
+}
+
+.search_wrapper .button{
+  position: absolute;
+  background-color: inherit;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 16px;
+  border: unset;
+  outline: none;
+
+  height: auto;
+  line-height: 1;
+
+  color: #363636;
+  cursor: pointer;
+  justify-content: center;
+  padding: calc(0.375em - 1px) 0.75em;
+  white-space: nowrap;
+}
+
+.input{
+  align-items: center;
+}
+
+
+.e_search_submit{
+  margin-top: 25px;
+}
+
+.carouselname{
+  margin-bottom: 16px;
+
+}
+
+.carousel-inner .card{
+  margin: 0 0.5em;
+  box-shadow: 2px 6px 8px 0 rgba(22, 22, 26, 0.18);
+  border-radius: 0;
+}
+
+.carousel-container .row{
+  max-width: 650px;
+  width: 100%;
+  align-items: center;
+  margin:auto!important;
+}
