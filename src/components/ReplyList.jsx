@@ -54,7 +54,7 @@ export default function ReplyList(props){
         </Col>
         <Col lg={6} md={6} sm={6}>
           <div className="replybody">
-            <Card.Text className="replyname">{r_member}</Card.Text>
+            <Card.Text className="replyname">{r_member}님</Card.Text>
             <Card.Text className="replydetail">{r_detail}</Card.Text>
           </div>
           {isMade ? <Button className="deletereply" onClick={onClickDeleteReply}>삭제</Button>:''}
