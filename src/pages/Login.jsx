@@ -1,4 +1,4 @@
-import {Button, Form} from 'react-bootstrap'
+import {Button, Container, Form} from 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import axios from 'axios';
 import { React, useState } from 'react';
@@ -43,7 +43,6 @@ export default function Login(){
       .catch((error)=>{
         console.log(error)
       })
-
   };
 
   const loginId = (e) => {
@@ -58,9 +57,9 @@ export default function Login(){
 
   return (
     <div>
-      <div className="bannername">
+      <Container className="bannername">
         로그인
-      </div>
+      </Container>
     <Form className='logintype'onSubmit={handleSubmit}>
       <Form.Group className='mb-3' controlId='formBasicId'>
         <Form.Label>아이디</Form.Label>

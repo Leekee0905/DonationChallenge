@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import {Button} from 'react-bootstrap';
+import {Button, Container} from 'react-bootstrap';
 import {Form} from 'react-bootstrap';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
@@ -232,9 +232,9 @@ export default function Signup() {
 
   return (
     <div>
-      <div className="bannername">
+      <Container className="bannername">
         회원가입
-      </div>
+      </Container>
       <Form className='signtype'onSubmit={handleSubmit}>
         <h2>회원가입</h2><br/>
         <Form.Group className="mb-3" controlId="formBasicName">

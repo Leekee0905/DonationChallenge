@@ -54,12 +54,12 @@ export default function Home(){
 
   return (
     <div>
-      <div className="bannername">
-        Home
-      </div>
-      <section>
+      <Container>
+        <div className="bannername">
+          HOME
+        </div>
         <img width={"100%"} height={"350px"} src={process.env.PUBLIC_URL+'/img/homebanner.png'} />
-      </section>
+      </Container>
       <Container className='search-container'>
         <Form onSubmit={onSubmitSearch} className="search_wrapper">
           <Form.Control

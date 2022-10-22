@@ -14,9 +14,9 @@ import MyPayment from "./MyPayment";
 export default function Mypage(){
   return(
     <section>
-      <div className="bannername">
+      <Container className="bannername">
         마이페이지
-      </div>
+      </Container>
       <Container className="mypage_body">
       <Row>
         <Col xs={3} md={3} lg={3}>

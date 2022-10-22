@@ -35,9 +35,9 @@ export default function Challenge(){
   return(
     <div className='challenge-wrapper'>
       <section className='challenge-content'>
-      <div className="bannername">
+      <Container className="bannername">
         챌린지 목록
-      </div>
+      </Container>
       <Container>
         <Row>
           <Col xs={3} md={3} lg={3}>

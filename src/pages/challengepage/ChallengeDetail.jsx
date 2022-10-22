@@ -251,6 +251,8 @@ export const Payment = (props) => {
             imp_uid: response.imp_uid
           }
         }).then(()=>{
+          window.location.replace(`/challenge/${id}`)
+          console.log('good')
         }).catch((error)=>{
           console.log(error);
         })
@@ -420,9 +422,9 @@ export default function ChallengeDetail(){
 
   return(
     <div>
-      <div className="bannername">
+      <Container className="bannername">
         챌린지
-      </div>
+      </Container>
       <Container>
         <div className="infoBox">
           <h1 className="title">{c_title}</h1><br/>

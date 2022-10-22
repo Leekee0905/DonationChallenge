@@ -1,5 +1,4 @@
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
+import {Form, Button, Container} from "react-bootstrap"
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 import {ko} from 'date-fns/esm/locale';
@@ -63,38 +62,43 @@ export default function ChallengeUpload(){
     })
   }
   return (
-    <Form className='uploadtype'>
-      <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-        <Form.Label>챌린지 제목</Form.Label>
-        <Form.Control onChange={onChangeTitle} value={c_title} type="title" placeholder="챌린지 제목을 입력하세요" />
-      </Form.Group>
-      <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
-        <Form.Label>챌린지 설명란</Form.Label>
-        <Form.Control onChange={onChangeDetail} value={c_detail} as="textarea" rows={3} />
-      </Form.Group>
-      <Form.Select onChange={onChangeDonation} value={c_donation_destination} aria-label="Default select example">
-        <option>기부단체 선택</option>
-        <option value="적십자">적십자</option>
-        <option value="초록우산어린이재단">초록우산어린이재단</option>
-        <option value="굿네이버스">굿네이버스</option>
-        <option value="유니세프">유니세프</option>
-      </Form.Select>
-      <Form.Group className="mb-3" controlId="formBasicEndDay">
-          <Form.Label>종료 날짜</Form.Label>
-          <DatePicker
-          calendarStartDay={3}
-          minDate={subDays(new Date(),0)}
-          dateFormat={"yyyy-MM-dd"}
-          locale={ko} 
-          selected={c_endTime}
-          onChange={(date) => setEndTime(date)}
-          peekNextMonth
-          showMonthDropdown
-          showYearDropdown
-          dropdownMode="select"
-          />
+    <div>
+      <Container className="bannername">
+        챌린지 업로드
+      </Container>
+      <Form className='uploadtype'>
+        <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+          <Form.Label>챌린지 제목</Form.Label>
+          <Form.Control onChange={onChangeTitle} value={c_title} type="title" placeholder="챌린지 제목을 입력하세요" />
         </Form.Group>
-      <Button className="c_upload_btn" onClick={submitChallenge}>업로드</Button>
-    </Form>
+        <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
+          <Form.Label>챌린지 설명란</Form.Label>
+          <Form.Control onChange={onChangeDetail} value={c_detail} as="textarea" rows={3} />
+        </Form.Group>
+        <Form.Select onChange={onChangeDonation} value={c_donation_destination} aria-label="Default select example">
+          <option>기부단체 선택</option>
+          <option value="적십자">적십자</option>
+          <option value="초록우산어린이재단">초록우산어린이재단</option>
+          <option value="굿네이버스">굿네이버스</option>
+          <option value="유니세프">유니세프</option>
+        </Form.Select>
+        <Form.Group className="mb-3" controlId="formBasicEndDay">
+            <Form.Label>종료 날짜</Form.Label>
+            <DatePicker
+            calendarStartDay={3}
+            minDate={subDays(new Date(),0)}
+            dateFormat={"yyyy-MM-dd"}
+            locale={ko} 
+            selected={c_endTime}
+            onChange={(date) => setEndTime(date)}
+            peekNextMonth
+            showMonthDropdown
+            showYearDropdown
+            dropdownMode="select"
+            />
+          </Form.Group>
+        <Button className="c_upload_btn" onClick={submitChallenge}>업로드</Button>
+      </Form>
+    </div>
   );
 }
